@@ -1,16 +1,24 @@
 import { useRef } from "react"
+import { motion } from "framer-motion"
 import { PARTNERS, AWARDS, PARTNERS_CONTENT } from "@/constants/partnersConstants"
+import { fadeInUp, viewportOptions } from "@/utils/animations"
 
 export default function PartnersSection() {
     const partnersRef = useRef(null)
     const awardsRef = useRef(null)
 
     return (
-        <section className="py-8 bg-white">
+        <motion.section
+            className="py-8 bg-white"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOptions}
+            variants={fadeInUp}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-6">
+                <motion.div className="text-center mb-6" variants={fadeInUp}>
                     <h2 className="text-xl font-bold text-gray-900">{PARTNERS_CONTENT.partnersTitle}</h2>
-                </div>
+                </motion.div>
                 <div className="relative overflow-hidden whitespace-nowrap">
                     <div className="absolute left-0 w-24 h-full z-10 bg-gradient-to-r from-white to-transparent"></div>
                     <div className="absolute right-0 w-24 h-full z-10 bg-gradient-to-l from-white to-transparent"></div>
@@ -25,9 +33,9 @@ export default function PartnersSection() {
                     </div>
                 </div>
                 
-                <div className="text-center mt-6 mb-6">
+                <motion.div className="text-center mt-6 mb-6" variants={fadeInUp}>
                     <h2 className="text-xl font-bold text-gray-900">{PARTNERS_CONTENT.awardsTitle}</h2>
-                </div>
+                </motion.div>
                 <div className="relative overflow-hidden whitespace-nowrap">
                     <div className="absolute left-0 w-24 h-full z-10 bg-gradient-to-r from-white to-transparent"></div>
                     <div className="absolute right-0 w-24 h-full z-10 bg-gradient-to-l from-white to-transparent"></div>
@@ -60,6 +68,6 @@ export default function PartnersSection() {
                     width: fit-content;
                 }
             `}</style>
-        </section>
+        </motion.section>
     )
 }

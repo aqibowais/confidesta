@@ -1,16 +1,31 @@
+import { motion } from "framer-motion"
 import { NEWSLETTERS, NEWSLETTER_CONTENT } from "@/constants/newsletterConstants"
+import { fadeInUp, staggerContainer, staggerItem, hoverLift, viewportOptions } from "@/utils/animations"
 
 export default function NewsletterSection() {
-
   return (
-    <section className="bg-gray-900 py-16">
+    <motion.section
+      className="bg-gray-900 py-16"
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOptions}
+      variants={staggerContainer}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
           {/* Newsletter Cards - 4 columns */}
-          <div className="lg:col-span-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div className="lg:col-span-4" variants={staggerContainer}>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+              variants={staggerContainer}
+            >
               {NEWSLETTERS.map((newsletter) => (
-                <div key={newsletter.id} className="relative">
+                <motion.div
+                  key={newsletter.id}
+                  className="relative"
+                  variants={staggerItem}
+                  whileHover={hoverLift}
+                >
                   {/* Frequency Badge */}
                   <div className="mb-3">
                     <span className="bg-gray-700 text-white text-xs font-semibold px-3 py-1 rounded">
@@ -74,50 +89,70 @@ export default function NewsletterSection() {
                   </div>
                   
                   {/* Select Button */}
-                  <button className="w-full bg-white text-black font-semibold py-2 px-4 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors flex items-center justify-center text-sm">
+                  <motion.button
+                    className="w-full bg-white text-black font-semibold py-2 px-4 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors flex items-center justify-center text-sm"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
                     {NEWSLETTER_CONTENT.selectButtonText}
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Newsletter Signup - 1 column */}
-          <div className="lg:col-span-1">
+          <motion.div className="lg:col-span-1" variants={fadeInUp}>
             <div className="text-white">
-              <h2 className="text-2xl font-bold mb-3">{NEWSLETTER_CONTENT.title}</h2>
-              <p className="text-gray-300 mb-6 text-sm">
+              <motion.h2
+                className="text-2xl font-bold mb-3"
+                variants={staggerItem}
+              >
+                {NEWSLETTER_CONTENT.title}
+              </motion.h2>
+              <motion.p
+                className="text-gray-300 mb-6 text-sm"
+                variants={staggerItem}
+              >
                 {NEWSLETTER_CONTENT.description}
-              </p>
+              </motion.p>
               
               {/* Email Signup Form */}
-              <div className="space-y-4">
-                <div>
+              <motion.div className="space-y-4" variants={staggerContainer}>
+                <motion.div variants={staggerItem}>
                   <input
                     type="email"
                     placeholder={NEWSLETTER_CONTENT.emailPlaceholder}
                     className="w-full px-4 py-3 rounded-lg bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   />
-                </div>
+                </motion.div>
                 
-                <button className="w-full bg-gray-600 hover:bg-gray-500 text-white font-semibold py-3 px-4 rounded-lg transition-colors text-sm">
+                <motion.button
+                  className="w-full bg-gray-600 hover:bg-gray-500 text-white font-semibold py-3 px-4 rounded-lg transition-colors text-sm"
+                  variants={staggerItem}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   {NEWSLETTER_CONTENT.subscribeButtonText}
-                </button>
+                </motion.button>
                 
-                <p className="text-xs text-gray-400 mt-4">
+                <motion.p
+                  className="text-xs text-gray-400 mt-4"
+                  variants={staggerItem}
+                >
                   {NEWSLETTER_CONTENT.privacyText}{" "}
                   <a href={NEWSLETTER_CONTENT.privacyLinkHref} className="text-white underline hover:no-underline">
                     {NEWSLETTER_CONTENT.privacyLinkText}
                   </a>
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
